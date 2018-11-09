@@ -1,14 +1,14 @@
 {
-  "name": "my-money-backend",
+  "name": "goody-back-money",
   "version": "1.0.0",
   "description": "",
   "main": "src/loader.js",
   "scripts": {
     "dev": "nodemon",
-    "production": "pm2 start src/loader.js --name my-money-backend"
+    "production": "pm2 start src/loader.js --name goody-back-money"
   },
   "keywords": [],
-  "author": "",
+  "author": "Fábio Moura",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "3.0.0",
