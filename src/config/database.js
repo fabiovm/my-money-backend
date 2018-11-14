@@ -1,8 +1,9 @@
+const env = require('../../src/.env')
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
 
-const url = process.env.MONGOLAB_URI ? process.env.MONGOLAB_URI : 'mongodb://localhost/mymoney'
-module.exports = mongoose.connect(url, {useNewUrlParser: true})
+const url = process.env.MONGOLAB_URI ? process.env.MONGOLAB_URI : env.database.urlLocal
+module.exports = mongoose.connect(url, {useNewUrlParser: env.database.useNewUrlParser})
 
 mongoose.Error.messages.general.required = "O atributo '{PATH}' é obrigatório."
 mongoose.Error.messages.Number.min = 

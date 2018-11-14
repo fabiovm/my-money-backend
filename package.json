@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/loader.js",
   "scripts": {
-    "dev": "nodemon",
+    "dev": "cp src/.env.dev src/.env && nodemon",
     "production": "pm2 start src/loader.js --name goody-back-money"
   },
   "keywords": [],

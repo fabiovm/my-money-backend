@@ -1,12 +1,32 @@
 const BillingCycle = require('./billingCycle')
 const errorHandler = require('../common/errorHandler')
+const { orderByToMongo} = require('../../common/utils')
+const { LIST } = require('../../consts')
 
-BillingCycle.methods(['get', 'post', 'put', 'delete'])
+BillingCycle.methods([ 'get', 'post', 'put', 'delete'])
 BillingCycle.updateOptions({new: true, runValidators: true})
 BillingCycle.after('post', errorHandler).after('put', errorHandler)
 
+BillingCycle.route('', (req, res, next) => {
+    let total = {};
+    let orderBy =  orderByToMongo(req)
+    const skip = req.query.skip?req.query.skip:LIST.SKIP_DEFAULT
+    const limit = req.query.limit?req.query.limit:LIST.LIMIT_DEFAULT
+    //req.headers.json({"x-count": 0})
+    //console.log('orderBy: '+orderBy)
+    BillingCycle.find((error, value) => {
+        if(error) {
+            res.status(500).json({errors: [error]})
+        } else {
+            res.json(value)
+        }
+    }).sort(orderBy).skip(skip).limit(limit)
+
+    
+})
+
 BillingCycle.route('count', (req, res, next) => {
-    BillingCycle.count((error, value) => {
+    BillingCycle.countDocuments((error, value) => {
         if(error) {
             res.status(500).json({errors: [error]})
         } else {
